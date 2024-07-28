@@ -141,7 +141,7 @@ const writeFile = (
           anonymizer.validateLine(line, notifier);
       }
 
-      writer.close(() => resolve());
+      writer.close();
     });
   });
 };

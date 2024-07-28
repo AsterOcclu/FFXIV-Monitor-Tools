@@ -6,6 +6,7 @@ import { EventResponses as OverlayEventResponses, Party } from '../cactbot/types
 import { NetFields } from '../cactbot/types/net_fields';
 import { ToMatches } from '../cactbot/types/net_matches';
 import { normalizeLogLine } from './utils';
+import { commonNetRegex } from "../cactbot/resources/netregexes";
 
 export type PartialFieldMatches<Field extends keyof NetFields> = Partial<
   ToMatches<NetFields[Field]>
@@ -36,6 +37,10 @@ export interface EventMap {
   ) => void;
 }
 
+const isWipe = (line: string): boolean => {
+  return commonNetRegex.wipe.test(line) || /^41\|[^|]*\|[^|]*\|7DE\|/.test(line);
+};
+
 export class JobsEventEmitter extends EventEmitter<EventMap> {
   constructor() {
     super();
@@ -50,9 +55,9 @@ export class JobsEventEmitter extends EventEmitter<EventMap> {
     //   this.processEnmityTargetData(ev);
     // });
 
-    addOverlayListener('onPartyWipe', () => {
-      this.emit('battle/wipe');
-    });
+    // addOverlayListener('onPartyWipe', () => {
+    //   this.emit('battle/wipe');
+    // });
 
     // addOverlayListener('onInCombatChangedEvent', (ev) => {
     //   this.emit('battle/in-combat', {
@@ -75,6 +80,10 @@ export class JobsEventEmitter extends EventEmitter<EventMap> {
   }
 
   processLogLine(ev: OverlayEventResponses['LogLine']): void {
+    if (isWipe(ev.rawLine)) {
+      this.emit('battle/wipe');
+    }
+
     const type = ev.line[logDefinitions.None.fields.type];
 
     this.emit('log', ev.line, ev.rawLine);
@@ -120,8 +129,8 @@ export class JobsEventEmitter extends EventEmitter<EventMap> {
     if (target) {
       this.emit('battle/target', {
         name: target.Name,
-        distance: target.Distance,
-        effectiveDistance: target.EffectiveDistance,
+        distance: parseFloat(target.Distance),
+        effectiveDistance: parseFloat(target.EffectiveDistance),
       });
     } else {
       this.emit('battle/target');

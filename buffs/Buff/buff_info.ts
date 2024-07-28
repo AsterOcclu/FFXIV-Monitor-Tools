@@ -13,12 +13,12 @@ const chainStratagemImage = "../resources/images/002815.png"; // 连环计
 // 占星
 const divinationImage = "../resources/images/003553.png"; // 占卜
 const astrodyneImage = "../resources/images/003558.png"; // 宏图
-const theArrowImage = "../resources/images/003113.png"; // 放浪神
+// const theArrowImage = "../resources/images/003113.png"; // 放浪神
 const theBalanceImage = "../resources/images/003110.png"; // 太阳神
-const theBoleImage = "../resources/images/003112.png"; // 世界树
-const theEwerImage = "../resources/images/003114.png"; // 河流神
+// const theBoleImage = "../resources/images/003112.png"; // 世界树
+// const theEwerImage = "../resources/images/003114.png"; // 河流神
 const theSpearImage = "../resources/images/003111.png"; // 战争神
-const theSpireImage = "../resources/images/003115.png"; // 建筑神
+// const theSpireImage = "../resources/images/003115.png"; // 建筑神
 const ladyOfCrownsImage = "../resources/images/003146.png"; // 富贵
 const lordOfCrownsImage = "../resources/images/003147.png"; // 领主
 // 武僧
@@ -31,6 +31,7 @@ const leftEyeImage = "../resources/images/002587.png"; // 左眼
 //忍者
 // const trickAttackImage = "../resources/images/000618.png"; // 背刺
 const mugImage = "../resources/images/000613.png"; // 夺取
+const dokumoriImage = "../resources/images/036957.png"; // 毒盛之术
 // 钐镰客
 const arcaneCircleImage = "../resources/images/003633.png"; // 秘环
 // 诗人
@@ -45,6 +46,8 @@ const devotionImage = "../resources/images/002688.png"; // 灵护
 const searingLightImage = "../resources/images/002752.png"; // 灼热之光
 // 赤魔
 const emboldenImage = "../resources/images/003218.png"; // 鼓励
+// 绘灵法师
+const starryMuseImage = "../resources/images/034675.png"; // 星空具现
 
 const aEffectId = {
     'Requiescat': '558', // 安魂祈祷
@@ -52,7 +55,11 @@ const aEffectId = {
     'RightEye': '5AD', // 巨龙右眼
     'RadiantFinale': 'B94', // 最终乐章
 
+    'LanceCharge': '748',
+    'NoMercy': '727',
+
     'Mug':'8C8', // 夺取(能力技)
+    'Dokumori':'905D', // 毒盛之术(能力技)
 } as const;
 
 export interface BuffInfo {
@@ -117,8 +124,8 @@ export class BuffInfoList {
         // 黑骑
         // 枪刃
         noMercy: { // 无情
-            gainEffect: [EffectId.NoMercy],
-            loseEffect: [EffectId.NoMercy],
+            gainEffect: [aEffectId.NoMercy],
+            loseEffect: [aEffectId.NoMercy],
             useEffectDuration: true,
             icon: noMercyImage,
             borderColor: '#345ec4',
@@ -169,18 +176,18 @@ export class BuffInfoList {
             physicalUp: 5, // 物理增伤
             magicUp: 5, // 魔法增伤
         },
-        arrow: { // 放浪神之箭
-            gainEffect: [EffectId.TheArrow],
-            loseEffect: [EffectId.TheArrow],
-            useEffectDuration: true,
-            icon: theArrowImage,
-            borderColor: '#37ccee',
-            sortKey: 0,
-            target: 'you',
-            meleeUp: 6,
-            rangedUp: 3,
-            tts: '近卡',
-        },
+        // arrow: { // 放浪神之箭
+        //     gainEffect: [EffectId.TheArrow],
+        //     loseEffect: [EffectId.TheArrow],
+        //     useEffectDuration: true,
+        //     icon: theArrowImage,
+        //     borderColor: '#37ccee',
+        //     sortKey: 0,
+        //     target: 'you',
+        //     meleeUp: 6,
+        //     rangedUp: 3,
+        //     tts: '近卡',
+        // },
         balance: { // 太阳神之衡
             gainEffect: [EffectId.TheBalance],
             loseEffect: [EffectId.TheBalance],
@@ -191,32 +198,32 @@ export class BuffInfoList {
             target: 'you',
             meleeUp: 6,
             rangedUp: 3,
-            tts: '近卡',
+            tts: '太阳神',
         },
-        bole: { // 世界树之干
-            gainEffect: [EffectId.TheBole],
-            loseEffect: [EffectId.TheBole],
-            useEffectDuration: true,
-            icon: theBoleImage,
-            borderColor: '#22dd77',
-            sortKey: 0,
-            target: 'you',
-            meleeUp: 3,
-            rangedUp: 6,
-            tts: '远卡',
-        },
-        ewer: { // 河流神之瓶
-            gainEffect: [EffectId.TheEwer],
-            loseEffect: [EffectId.TheEwer],
-            useEffectDuration: true,
-            icon: theEwerImage,
-            borderColor: '#66ccdd',
-            sortKey: 0,
-            target: 'you',
-            meleeUp: 3,
-            rangedUp: 6,
-            tts: '远卡',
-        },
+        // bole: { // 世界树之干
+        //     gainEffect: [EffectId.TheBole],
+        //     loseEffect: [EffectId.TheBole],
+        //     useEffectDuration: true,
+        //     icon: theBoleImage,
+        //     borderColor: '#22dd77',
+        //     sortKey: 0,
+        //     target: 'you',
+        //     meleeUp: 3,
+        //     rangedUp: 6,
+        //     tts: '远卡',
+        // },
+        // ewer: { // 河流神之瓶
+        //     gainEffect: [EffectId.TheEwer],
+        //     loseEffect: [EffectId.TheEwer],
+        //     useEffectDuration: true,
+        //     icon: theEwerImage,
+        //     borderColor: '#66ccdd',
+        //     sortKey: 0,
+        //     target: 'you',
+        //     meleeUp: 3,
+        //     rangedUp: 6,
+        //     tts: '远卡',
+        // },
         spear: { // 战争神之枪
             gainEffect: [EffectId.TheSpear],
             loseEffect: [EffectId.TheSpear],
@@ -225,22 +232,22 @@ export class BuffInfoList {
             borderColor: '#4477dd',
             sortKey: 0,
             target: 'you',
-            meleeUp: 6,
-            rangedUp: 3,
-            tts: '近卡',
-        },
-        spire: { // 建筑神之塔
-            gainEffect: [EffectId.TheSpire],
-            loseEffect: [EffectId.TheSpire],
-            useEffectDuration: true,
-            icon: theSpireImage,
-            borderColor: '#ddd044',
-            sortKey: 0,
-            target: 'you',
             meleeUp: 3,
             rangedUp: 6,
-            tts: '远卡',
+            tts: '战争神',
         },
+        // spire: { // 建筑神之塔
+        //     gainEffect: [EffectId.TheSpire],
+        //     loseEffect: [EffectId.TheSpire],
+        //     useEffectDuration: true,
+        //     icon: theSpireImage,
+        //     borderColor: '#ddd044',
+        //     sortKey: 0,
+        //     target: 'you',
+        //     meleeUp: 3,
+        //     rangedUp: 6,
+        //     tts: '远卡',
+        // },
         // 武僧
         riddleOfFire: { // 红莲
             gainEffect: [aEffectId.RiddleOfFire],
@@ -269,8 +276,8 @@ export class BuffInfoList {
         },
         // 龙骑
         lanceCharge: { // 猛枪
-            gainEffect: [EffectId.LanceCharge],
-            loseEffect: [EffectId.LanceCharge],
+            gainEffect: [aEffectId.LanceCharge],
+            loseEffect: [aEffectId.LanceCharge],
             useEffectDuration: true,
             icon: lanceChargeImage,
             borderColor: '#831819',
@@ -343,6 +350,19 @@ export class BuffInfoList {
             physicalUp: 5,
             magicUp: 5,
             tts: '夺取',
+        },
+        dokumori: { // 毒盛之术
+            activeAbility: [aEffectId.Dokumori],
+            partyOnly: true,
+            durationSeconds: 20,
+            icon: dokumoriImage,
+            borderColor: '#e2b640',
+            sortKey: 0,
+            cooldown: 120,
+            target: 'boss',
+            physicalUp: 5,
+            magicUp: 5,
+            tts: '毒盛',
         },
         // 钐镰客
         arcaneCircle: { // 秘环
@@ -464,6 +484,20 @@ export class BuffInfoList {
             magicUp: 5,
             tts: '鼓励',
         },
+        // 绘灵法师
+        starryMuse: { // 鼓励(从赤魔得到) 511
+            gainEffect: [EffectId.StarryMuse],
+            loseEffect: [EffectId.StarryMuse],
+            useEffectDuration: true,
+            icon: starryMuseImage,
+            borderColor: '#bcbce3',
+            sortKey: 1,
+            cooldown: 120,
+            target: 'you',
+            physicalUp: 5,
+            magicUp: 5,
+            tts: '星空',
+        },
     }
 
     // 5.x版本
@@ -535,8 +569,8 @@ export class BuffInfoList {
         },
         // 龙骑
         lanceCharge: { // 猛枪
-            gainEffect: [EffectId.LanceCharge],
-            loseEffect: [EffectId.LanceCharge],
+            gainEffect: [aEffectId.LanceCharge],
+            loseEffect: [aEffectId.LanceCharge],
             useEffectDuration: true,
             icon: lanceChargeImage,
             borderColor: '#831819',

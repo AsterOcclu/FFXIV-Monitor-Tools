@@ -3,10 +3,11 @@ import { EventEmitter } from 'eventemitter3';
 import {
   kComboActions,
   kComboBreakers,
-  kComboBreakers5x,
+  kComboBreakers620,
+  kComboBreakers630,
   kComboDelay,
-  kComboDelay5x,
 } from './constants';
+import { FfxivVersion } from './jobs';
 import { Player } from './player';
 
 type StartMap = {
@@ -112,14 +113,46 @@ export class ComboTracker extends EventEmitter<{ combo: ComboCallback }> {
     this.StateTransition(id);
   }
 
-  static setup(is5x: boolean, player: Player): ComboTracker {
-    const breakers = is5x ? kComboBreakers5x : kComboBreakers;
+  static setup(ffxivVersion: FfxivVersion, player: Player): ComboTracker {
+    let breakers;
+    if (ffxivVersion < 630)
+      breakers = kComboBreakers620;
+    else if (ffxivVersion < 640)
+      breakers = kComboBreakers630;
+    else
+      breakers = kComboBreakers;
+
     const comboTracker = new ComboTracker({
       player: player,
       comboBreakers: breakers,
-      comboDelayMs: (is5x ? kComboDelay5x : kComboDelay) * 1000,
+      comboDelayMs: kComboDelay * 1000,
     });
-    kComboActions.forEach((skillList) => comboTracker.AddCombo(skillList));
+
+    const normalise = (raw: (string | string[])[][]): string[][] => {
+      const queue = [...raw];
+      const result = [];
+      while (queue.length) {
+        const item = queue.shift();
+        if (typeof item === 'undefined')
+          continue;
+        if (item?.every((i) => typeof i === 'string')) {
+          result.push(item as string[]);
+          continue;
+        }
+        const idx = item.findIndex((i) => Array.isArray(i));
+        const arr = item[idx] as string[];
+        for (const i of arr) {
+          const copy = [...item];
+          copy[idx] = i;
+          queue.push(copy);
+        }
+      }
+      return result;
+    };
+    const normalised = normalise(kComboActions);
+    for (const skillList of normalised) {
+      comboTracker.AddCombo(skillList);
+    }
     return comboTracker;
   }
 }

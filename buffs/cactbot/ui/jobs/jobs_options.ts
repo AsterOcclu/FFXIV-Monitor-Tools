@@ -9,6 +9,7 @@ export interface JobsNonConfigOptions {
   LowerOpacityOutOfCombat: boolean;
   OpacityOutOfCombat: number;
   PlayCountdownSound: boolean;
+  CountdownSoundVolume: number;
   HideWellFedAboveSeconds: number;
   ShowMPTickerOutOfCombat: boolean;
   MidHealthThresholdPercent: number;
@@ -53,6 +54,7 @@ const defaultJobsNonConfigOptions: JobsNonConfigOptions = {
   LowerOpacityOutOfCombat: true,
   OpacityOutOfCombat: 0.5,
   PlayCountdownSound: true,
+  CountdownSoundVolume: 0.3,
   HideWellFedAboveSeconds: 15 * 60,
   ShowMPTickerOutOfCombat: false,
   MidHealthThresholdPercent: 0.8,
@@ -72,8 +74,8 @@ const defaultJobsNonConfigOptions: JobsNonConfigOptions = {
 
 // See user/jobs-example.js for documentation.
 const defaultJobsConfigOptions: JobsConfigOptions = {
-  ShowHPNumber: ['PLD', 'WAR', 'DRK', 'GNB', 'WHM', 'SCH', 'AST', 'BLU'],
-  ShowMPNumber: ['PLD', 'DRK', 'WHM', 'SCH', 'AST', 'BLM', 'BLU'],
+  ShowHPNumber: ['PLD', 'WAR', 'DRK', 'GNB', 'WHM', 'SCH', 'AST', 'SGE', 'BLU'],
+  ShowMPNumber: ['PLD', 'DRK', 'WHM', 'SCH', 'AST', 'SGE', 'BLM', 'BLU'],
 
   ShowMPTicker: ['BLM'],
 
@@ -88,8 +90,8 @@ const defaultJobsConfigOptions: JobsConfigOptions = {
   },
 
   FarThresholdOffence: 24,
-  PldMediumMPThreshold: 9400,
-  PldLowMPThreshold: 3600,
+  PldMediumMPThreshold: 6199,
+  PldLowMPThreshold: 4399,
   DrkMediumMPThreshold: 5999,
   DrkLowMPThreshold: 2999,
   // One more fire IV and then despair.

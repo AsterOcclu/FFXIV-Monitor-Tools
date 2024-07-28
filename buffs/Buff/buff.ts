@@ -2,6 +2,7 @@ import UserConfig from "../cactbot/resources/user_config";
 import defaultOptions, {BuffOptions} from "./buff_options";
 import {JobsEventEmitter} from "./event_emitter";
 import {Player} from "./player";
+import { PartyTrackerOptions } from '../cactbot/types/party';
 import PartyTracker from "../cactbot/resources/party";
 import {Bars} from "./bars";
 import {ComponentManager} from "./components";
@@ -21,11 +22,16 @@ UserConfig.getUserConfigLocation('buff', defaultOptions, () => {
     // Because Chinese/Korean regions are still on older version of FF14,
     // set this value to whether or not we should treat this as 5.x or 6.x.
     // This affects things like entire jobs (smn) or combo durations.
-    const is5x = ['ko'].includes(options.ParserLanguage);
+    const is5x = false;
     // const is5x = ['ko'].includes(options.ParserLanguage);
 
     const emitter = new JobsEventEmitter();
-    const partyTracker = new PartyTracker();
+    const dummyOptions: PartyTrackerOptions = {
+        ...options,
+        DefaultPlayerLabel: 'nick',
+        PlayerNicks: {},
+      };
+    const partyTracker = new PartyTracker(dummyOptions);
     const player = new Player(emitter, partyTracker, is5x);
     const bars = new Bars(options, {emitter, player});
 

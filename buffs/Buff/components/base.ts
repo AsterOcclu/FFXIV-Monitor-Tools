@@ -2,7 +2,7 @@ import PartyTracker from '../../cactbot/resources/party';
 import { JobDetail } from '../../cactbot/types/event';
 import { Bars } from '../bars';
 import { ComboTracker } from '../combo_tracker';
-import { kComboDelay, kComboDelay5x } from '../constants';
+import { kComboDelay } from '../constants';
 import { JobsEventEmitter, PartialFieldMatches } from '../event_emitter';
 import { BuffOptions } from '../buff_options';
 import { Player } from '../player';
@@ -44,7 +44,7 @@ export class BaseComponent implements ComponentInterface {
     this.partyTracker = o.partyTracker;
     this.player = o.player;
     this.is5x = o.is5x;
-    this.comboDuration = o.is5x ? kComboDelay5x : kComboDelay;
+    this.comboDuration = kComboDelay;
 
     this.inCombat = false;
 

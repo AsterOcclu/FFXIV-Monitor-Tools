@@ -12,6 +12,7 @@
   "author": "Jiacheng",
   "license": "ISC",
   "dependencies": {
+    "@actions/exec": "^1.1.1",
     "@fast-csv/parse": "^4.3.6",
     "argparse": "^1.0.10",
     "bootstrap": "^5.1.3",

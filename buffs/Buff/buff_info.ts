@@ -31,7 +31,7 @@ const leftEyeImage = "../resources/images/002587.png"; // 左眼
 //忍者
 // const trickAttackImage = "../resources/images/000618.png"; // 背刺
 const mugImage = "../resources/images/000613.png"; // 夺取
-const dokumoriImage = "../resources/images/036957.png"; // 毒盛之术
+const dokumoriImage = "../resources/images/012920.png"; // 毒盛之术
 // 钐镰客
 const arcaneCircleImage = "../resources/images/003633.png"; // 秘环
 // 诗人
@@ -47,7 +47,7 @@ const searingLightImage = "../resources/images/002752.png"; // 灼热之光
 // 赤魔
 const emboldenImage = "../resources/images/003218.png"; // 鼓励
 // 绘灵法师
-const starryMuseImage = "../resources/images/034675.png"; // 星空具现
+const starryMuseImage = "../resources/images/013808.png"; // 星空具现
 
 const aEffectId = {
     'Requiescat': '558', // 安魂祈祷
